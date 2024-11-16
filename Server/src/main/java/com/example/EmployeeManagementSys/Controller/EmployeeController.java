@@ -21,14 +21,12 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-
     // Create a new employee
     @PostMapping
     public ResponseEntity<String> createEmployee(@RequestBody Employee employee) {
         employeeService.createEmployee(employee);
         return new ResponseEntity<>("Employee created successfully", HttpStatus.CREATED);
     }
-
     // Get all employees
     @GetMapping
     public ResponseEntity<List<Employee>> getAllEmployees() {
