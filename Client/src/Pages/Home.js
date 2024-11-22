@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa"; 
 import "./Home.css"; 
 import Header from "../components/header";
@@ -7,6 +8,7 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // Hook for navigation
 
   // Fetch Employees
   useEffect(() => {
@@ -45,6 +47,7 @@ const EmployeeList = () => {
   // Handle View Employee
   const handleView = (id) => {
     console.log("Viewing employee with ID:", id);
+    navigate(`/employee/${id}`);
     // Navigate to a detailed view page or display a modal
     // Example: window.location.href = `/employee/${id}`;
   };
@@ -52,6 +55,7 @@ const EmployeeList = () => {
   // Handle Edit Employee
   const handleEdit = (id) => {
     console.log("Editing employee with ID:", id);
+    navigate(`/employee/edit/${id}`);
     // Navigate to an edit page or toggle edit form
     // Example: window.location.href = `/employee/edit/${id}`;
   };
