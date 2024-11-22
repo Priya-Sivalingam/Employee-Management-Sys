@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin(originPatterns = "*",maxAge = 3600)
+@CrossOrigin(originPatterns = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -94,10 +94,6 @@ public class AuthController {
                     case "admin":
                         assignedRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Admin role not found."));
-                        break;
-                    case "mod":
-                        assignedRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Moderator role not found."));
                         break;
                     default:
                         assignedRole = roleRepository.findByName(ERole.ROLE_USER)

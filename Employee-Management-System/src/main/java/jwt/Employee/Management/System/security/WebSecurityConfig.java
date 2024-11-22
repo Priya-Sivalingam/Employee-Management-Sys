@@ -60,6 +60,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/api/auth/**", "/api/test/**").permitAll() // Allow auth and test endpoints without authentication
+                        .requestMatchers("/employees/**").permitAll()
                         .anyRequest().authenticated()); // All other requests need authentication
 
         http.authenticationProvider(authenticationProvider());
