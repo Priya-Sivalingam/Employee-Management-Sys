@@ -4,13 +4,12 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
 
-
 function App() {
-    const isAuthenticated = !!localStorage.getItem('token');
+    const isAuthenticated = !!localStorage.getItem('jwtToken'); // Use the correct key for the token
     const navigate = useNavigate();
 
     useEffect(() => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('jwtToken'); // Use the correct key here too
       if (!token) {
           navigate('/');
       }

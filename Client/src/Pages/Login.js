@@ -10,13 +10,14 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const data = await loginUser(username, password);
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('Username', username);
+        setError('');
+
+        const response = await loginUser(username, password);
+
+        if (response.success) {
             navigate('/home');
-        } catch (error) {
-            setError('Invalid credentials');
+        } else {
+            setError(response.message || 'An error occurred');
         }
     };
 
@@ -40,9 +41,8 @@ function Login() {
                         className="input"
                     />
                     <button type="submit" className="button">Login</button>
-                    {error && <p className="error-text">{error}</p>}
+                    {error && <p className="error-text">{error}</p>} {/* Show error message */}
                 </form>
-                
             </div>
         </div>
     );

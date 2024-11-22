@@ -7,8 +7,7 @@ function Header() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem('token');  // Clear token from local storage
-        localStorage.removeItem('username');
+        localStorage.removeItem('jwtToken'); 
         navigate('/');  // Redirect to the login page
     };
     
@@ -21,7 +20,7 @@ function Header() {
             <button onClick={handleMenuClick} style={styles.iconButton}>
                 <FontAwesomeIcon icon={faBars} />
             </button>
-            <h2 style={styles.logo}>Attendance System</h2>
+            <h2 style={styles.logo}>Employee Management System</h2>
             <button onClick={handleLogout} style={styles.iconButton}>
                 <FontAwesomeIcon icon={faSignOutAlt} />
             </button>
