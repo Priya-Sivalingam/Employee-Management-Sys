@@ -1,80 +1,98 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { registerUser } from '../service/AuthService'; // Import the registerUser function directly
+import './signup.css'; // Add relevant styles
 
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('user');  // Default role is 'user'
+    const [role, setRole] = useState('user'); // Default role
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
         setMessage('');
-
-        const userData = {
-            username: username,
-            password: password,
-            role: [role]  // The role should be sent as an array
-        };
+        setLoading(true);
 
         try {
-            const response = await axios.post('/api/auth/signup', userData);
-            setMessage(response.data.message); // Display the success message
-            setLoading(false);
-        } catch (error) {
-            setLoading(false);
-            if (error.response) {
-                setMessage(error.response.data.message); // Display error message from the server
+            const result = await registerUser(username, password, role);
+            if (result.success) {
+                setMessage(`🎉 ${result.message}`);
             } else {
-                setMessage('An error occurred, please try again.');
+                setMessage(`❌ ${result.message || 'Registration failed. Please try again.'}`);
             }
+        } catch (error) {
+            setMessage('❌ An unexpected error occurred. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="signup-container">
-            <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        minLength="6"  // Password must be at least 6 characters
-                    />
-                </div>
-                <div>
-                    <label htmlFor="role">Role</label>
-                    <select
-                        id="role"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
+        <div className="signup">
+            <div className="signup__container">
+                <h2 className="signup__title">Create an Account</h2>
+                <form onSubmit={handleSubmit} className="signup__form">
+                    <div className="signup__form-group">
+                        <label htmlFor="username" className="signup__label">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            className="signup__input"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            placeholder="Enter your username"
+                            aria-label="Username"
+                        />
+                    </div>
+                    <div className="signup__form-group">
+                        <label htmlFor="password" className="signup__label">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            className="signup__input"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            minLength="6"
+                            placeholder="Enter a secure password"
+                            aria-label="Password"
+                        />
+                    </div>
+                    <div className="signup__form-group">
+                        <label htmlFor="role" className="signup__label">Role</label>
+                        <select
+                            id="role"
+                            className="signup__select"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                            aria-label="Role"
+                        >
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <button
+                        type="submit"
+                        className={`signup__button ${loading ? 'signup__button--loading' : ''}`}
+                        disabled={loading}
+                        aria-disabled={loading}
                     >
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        <option value="mod">Moderator</option>
-                    </select>
-                </div>
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Registering...' : 'Sign Up'}
-                </button>
-            </form>
-            {message && <p className="message">{message}</p>}
+                        {loading ? 'Registering...' : 'Sign Up'}
+                    </button>
+                </form>
+                {message && (
+                    <p
+                        className={`signup__message ${
+                            message.startsWith('🎉') ? 'signup__message--success' : 'signup__message--error'
+                        }`}
+                        role="alert"
+                    >
+                        {message}
+                    </p>
+                )}
+            </div>
         </div>
     );
 };

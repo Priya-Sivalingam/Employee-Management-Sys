@@ -31,3 +31,23 @@ export async function loginUser(username, password) {
     return { success: false, message: error.response ? error.response.data.message : error.message };
   }
 }
+// Function to register a user
+export async function registerUser(username, password, role) {
+  try {
+      const response = await axios.post("http://localhost:8080/api/auth/signup", {
+          username,
+          password,
+          role,
+      });
+
+      return {
+          success: true,
+          message: response.data.message || "User registered successfully!",
+      };
+  } catch (error) {
+      return {
+          success: false,
+          message: error.response?.data?.message || "Registration failed.",
+      };
+  }
+}

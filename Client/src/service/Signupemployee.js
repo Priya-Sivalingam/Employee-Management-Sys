@@ -1,28 +1,24 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/auth/signup'; // Adjust base URL if needed
+// Base API URL
+const API_URL = 'http://localhost:8080/api/auth';
 
 // Function to register a new user
 const registerUser = async (username, password, role) => {
     try {
-        const userData = {
-            username: username,
-            password: password,
-            role: [role]  // Role should be passed as an array
-        };
-
-        const response = await axios.post(API_URL, userData);
-        return response.data; // Return success message
+        const response = await axios.post(`${API_URL}/signup`, {
+            username,
+            password,
+            role: [role], // Role should be an array
+        });
+        return { success: true, message: response.data.message };
     } catch (error) {
         if (error.response) {
-            // Return error message from the backend
-            return error.response.data;
+            return { success: false, message: error.response.data.message };
         } else {
-            return { message: 'An error occurred while processing your request.' };
+            return { success: false, message: 'An error occurred, please try again.' };
         }
     }
 };
 
-export default {
-    registerUser,
-};
+export default { registerUser };

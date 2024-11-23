@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../service/AuthService';
+import "./Login.css";
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -32,6 +33,7 @@ function Login() {
                         value={username} 
                         onChange={(e) => setUsername(e.target.value)} 
                         className="input"
+                        autoComplete="username"
                     />
                     <input 
                         type="password" 
@@ -39,9 +41,10 @@ function Login() {
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)} 
                         className="input"
+                        autoComplete="current-password"
                     />
                     <button type="submit" className="button">Login</button>
-                    {error && <p className="error-text">{error}</p>} {/* Show error message */}
+                    {error && <p className="error-text">{error}</p>}
                 </form>
             </div>
         </div>

@@ -5,13 +5,14 @@ import Login from './Pages/Login';
 import Home from './Pages/Home';
 import EmployeeEdit from './Pages/EmployeeEdit';
 import EmployeeView from './Pages/EmployeeView';
+import Signup from './Pages/signup';
 
 function App() {
-    const isAuthenticated = !!localStorage.getItem('jwtToken'); // Use the correct key for the token
+    const isAuthenticated = !!localStorage.getItem('jwtToken'); 
     const navigate = useNavigate();
 
     useEffect(() => {
-      const token = localStorage.getItem('jwtToken'); // Use the correct key here too
+      const token = localStorage.getItem('jwtToken');
       if (!token) {
           navigate('/');
       }
@@ -19,10 +20,12 @@ function App() {
 
     return (
         <Routes>
+            <Route path="/signup" element={<Signup />} />
             <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <Login />} />
             <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/" />} />
-            <Route path="/employee/:id" element={isAuthenticated ?<EmployeeView />: <Navigate to="/" />} />
-        <Route path="/employee/edit/:id" element={isAuthenticated ?<EmployeeEdit />: <Navigate to="/" />} />
+            <Route path="/employee/:id" element={isAuthenticated ?<EmployeeView />: <Navigate to="/home" />} />
+            <Route path="/employee/edit/:id" element={isAuthenticated ?<EmployeeEdit />: <Navigate to="/home" />}/>
+            
         </Routes>
     );
 }
