@@ -1,0 +1,55 @@
+.add-employee-container {
+    display: flex;
+    justify-content: flex-start; /* Align content to the left */
+    align-items: flex-start; /* Align content to the top */
+    padding: 20px;
+  }
+  
+  .add-employee-form {
+    width: 100%;
+    max-width: 400px; /* Optional: Set a max width for the form */
+    margin-left: 0; /* Push form to the very left */
+    padding: 20px;
+    background: #f9f9f9; /* Light background for contrast */
+    border: 1px solid #ddd; /* Optional: Border for visibility */
+    border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .submit-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background: #0056b3;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  

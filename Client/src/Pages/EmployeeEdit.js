@@ -14,12 +14,14 @@ const EmployeeEdit = () => {
   });
   const [loading, setLoading] = useState(true); // For loading state
   const [error, setError] = useState(null); // For error handling
+  const [role, setRole] = useState(null);
 
   // Fetch employee details on component mount or when 'id' changes
   useEffect(() => {
     const fetchEmployeeDetails = async () => {
       try {
         const token = localStorage.getItem("jwtToken");
+        const userRole = localStorage.getItem("userRoles");
 
         const response = await fetch(`http://localhost:8080/employees/${id}`, {
           method: "GET",
@@ -28,6 +30,9 @@ const EmployeeEdit = () => {
             Authorization: token,
           },
         });
+
+        setRole(userRole);
+
 
         if (response.ok) {
           const data = await response.json();
@@ -38,7 +43,7 @@ const EmployeeEdit = () => {
           localStorage.removeItem("jwtToken");
           window.location.href = "/login";
         } else {
-          setError("Failed to fetch employees.");
+          setError("roleFailed to fetch employees.");
         }
       } catch (err) {
         setError("An error occurred while fetching employees.");
@@ -66,14 +71,14 @@ const EmployeeEdit = () => {
 
       if (response.ok) {
         alert("Employee updated successfully!");
-        navigate("/"); // Redirect to employee list after update
+        navigate("/"); 
       } else {
-        alert("Failed to update employee.");
+        alert(`${role} cannot edit the Employee Details`);
       }
     } catch (error) {
       alert("Error updating employee: " + error.message);
     } finally {
-      setLoading(false); // Set loading state to false after form submission
+      setLoading(false); 
     }
   };
 

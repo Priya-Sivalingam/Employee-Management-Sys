@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; 
-import { FaEye, FaEdit, FaTrash } from "react-icons/fa"; 
-import "./Home.css"; 
+import { useNavigate } from "react-router-dom";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import "./Home.css";
 import Header from "../components/header";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Hook for navigation
+  const [role, setRole] = useState(null);
+  const navigate = useNavigate();
 
-  // Fetch Employees
+  // Fetch employees and user role on component mount
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
         const token = localStorage.getItem("jwtToken");
+        const userRole = localStorage.getItem("userRoles");
+
+        // Set the role for the user
+        setRole(userRole);
 
         const response = await fetch("http://localhost:8080/employees", {
           method: "GET",
@@ -31,7 +36,7 @@ const EmployeeList = () => {
         } else if (response.status === 401) {
           setError("Unauthorized. Please login again.");
           localStorage.removeItem("jwtToken");
-          window.location.href = "/login";
+          navigate("/login");
         } else {
           setError("Failed to fetch employees.");
         }
@@ -42,26 +47,28 @@ const EmployeeList = () => {
     };
 
     fetchEmployees();
-  }, []);
+  }, [navigate]);
 
-  // Handle View Employee
+  // Handle viewing employee details
   const handleView = (id) => {
-    console.log("Viewing employee with ID:", id);
     navigate(`/employee/${id}`);
-    // Navigate to a detailed view page or display a modal
-    // Example: window.location.href = `/employee/${id}`;
   };
 
-  // Handle Edit Employee
+  // Handle editing employee details
   const handleEdit = (id) => {
-    console.log("Editing employee with ID:", id);
     navigate(`/employee/edit/${id}`);
-    // Navigate to an edit page or toggle edit form
-    // Example: window.location.href = `/employee/edit/${id}`;
   };
 
-  // Handle Delete Employee
+  // Handle deleting an employee
   const handleDelete = async (id) => {
+    const userRole = JSON.parse(localStorage.getItem("userRoles")); // Parse roles if stored as an array
+
+    // Restrict deletion for ROLE_USER
+    if (userRole && userRole.includes("ROLE_USER")) {
+      alert("Users with the 'ROLE_USER' role cannot delete employees.");
+      return;
+    }
+
     if (window.confirm("Are you sure you want to delete this employee?")) {
       try {
         const token = localStorage.getItem("jwtToken");
@@ -75,7 +82,9 @@ const EmployeeList = () => {
         });
 
         if (response.ok) {
-          setEmployees(employees.filter((employee) => employee.id !== id));
+          setEmployees((prevEmployees) =>
+            prevEmployees.filter((employee) => employee.id !== id)
+          );
           console.log("Deleted employee with ID:", id);
         } else {
           console.error("Failed to delete employee:", response.status);
@@ -86,7 +95,7 @@ const EmployeeList = () => {
     }
   };
 
-  // Handle Add Employee
+  // Handle adding a new employee
   const handleAddEmployee = () => {
     navigate("/employee/add");
   };
@@ -95,6 +104,7 @@ const EmployeeList = () => {
     <div className="employee-list-container">
       <Header />
       <h1>Employee List</h1>
+      <h2>{role === "ROLE_ADMIN" ? "Welcome, Admin" : `Welcome, ${role || "User"}`}</h2>
       {error && <p className="error-message">{error}</p>}
       <div className="add-employee-container">
         <button onClick={handleAddEmployee} className="add-employee-btn">
