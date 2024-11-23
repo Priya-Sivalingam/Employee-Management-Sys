@@ -37,7 +37,7 @@ This project implements a legacy internal application for managing employees wit
 7. [Contributing](#contributing)
 
 ---
-
+# Backend Spring Boot
 ## Installation
 
 ### Prerequisites
@@ -70,3 +70,21 @@ This project implements a legacy internal application for managing employees wit
 4. Run the application:
       - mvn spring-boot:run
       - By default, the application will be running on http://localhost:8080.
+
+# Frontend Setup (React)
+### Prerequisites
+   - Node.js: Ensure you have Node.js installed on your machine.
+   - npm: This is the package manager used to manage dependencies for React.
+### Steps
+1. Clone the repository:
+      - git clone https://github.com/your-repository/erp-employee-management-frontend.git
+      - cd erp-employee-management-frontend
+2. Install dependencies:
+      - npm install
+
+3. To run the application locally, use:
+      - npm start
+
+By default, the React app will be running on http://localhost:3000.
+
+
