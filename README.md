@@ -49,7 +49,19 @@ This project implements a legacy internal application for managing employees wit
 ### Steps
 
 1. **Clone the repository:**
+git clone [https://github.com/Priya-Sivalingam/Employee-Management-Sys.git](https://github.com/Priya-Sivalingam/Employee-Management-Sys.git)
+cd Employee-Management-Sys
 
-```bash
-git clone https://github.com/your-repository/erp-employee-management.git
-cd erp-employee-management
+2. Update the src/main/resources/application.properties file with your database and JWT secret key configuration.
+
+properties
+# Database Configuration
+spring.datasource.url=jdbc:postgresql://localhost:5432/erp_db
+spring.datasource.username=your_db_username
+spring.datasource.password=your_db_password
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+# JWT Configuration
+jwt.secret=your_jwt_secret_key
+jwt.expiration=86400000 # 24 hours in milliseconds
