@@ -1,4 +1,4 @@
-# ERP System with JWT Authentication and Employee Management
+# Employee Management System with JWT Authentication 
 
 This project implements a legacy internal application for managing employees within an ERP system. The application features a strong authentication mechanism using JWT, an employee management system, access control, and input validation. 
 
