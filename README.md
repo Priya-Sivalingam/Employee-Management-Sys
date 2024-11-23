@@ -47,7 +47,6 @@ This project implements a legacy internal application for managing employees wit
 - spring.datasource.username=your_db_username
 - spring.datasource.password=your_db_password
 - spring.datasource.driver-class-name=org.postgresql.Driver
-- spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 
 ### JWT Configuration
 - jwt.secret=your_jwt_secret_key
