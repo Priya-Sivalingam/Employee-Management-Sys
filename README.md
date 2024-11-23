@@ -25,18 +25,6 @@ This project implements a legacy internal application for managing employees wit
    - Data integrity and security ensured through validation on input fields.
 
 ---
-
-## Table of Contents
-
-1. [Installation](#installation)
-2. [Usage](#usage)
-3. [Features](#features)
-4. [Database Schema](#database-schema)
-5. [API Endpoints](#api-endpoints)
-6. [Sequence Diagram](#sequence-diagram)
-7. [Contributing](#contributing)
-
----
 # Backend Spring Boot
 ## Installation
 
