@@ -77,8 +77,7 @@ This project implements a legacy internal application for managing employees wit
    - npm: This is the package manager used to manage dependencies for React.
 ### Steps
 1. Clone the repository:
-      - git clone https://github.com/your-repository/erp-employee-management-frontend.git
-      - cd erp-employee-management-frontend
+      - cd client
 2. Install dependencies:
       - npm install
 
