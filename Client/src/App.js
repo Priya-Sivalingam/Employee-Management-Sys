@@ -5,7 +5,6 @@ import Login from './Pages/Login';
 import Home from './Pages/Home';
 import EmployeeEdit from './Pages/EmployeeEdit';
 import EmployeeView from './Pages/EmployeeView';
-import Signup from './Pages/signup';
 
 function App() {
     const isAuthenticated = !!localStorage.getItem('jwtToken'); 
@@ -20,7 +19,6 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/signup" element={<Signup />} />
             <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <Login />} />
             <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/" />} />
             <Route path="/employee/:id" element={isAuthenticated ?<EmployeeView />: <Navigate to="/home" />} />

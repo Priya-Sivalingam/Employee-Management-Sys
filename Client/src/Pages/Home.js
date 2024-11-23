@@ -86,11 +86,21 @@ const EmployeeList = () => {
     }
   };
 
+  // Handle Add Employee
+  const handleAddEmployee = () => {
+    navigate("/employee/add");
+  };
+
   return (
     <div className="employee-list-container">
       <Header />
       <h1>Employee List</h1>
       {error && <p className="error-message">{error}</p>}
+      <div className="add-employee-container">
+        <button onClick={handleAddEmployee} className="add-employee-btn">
+          Add Employee
+        </button>
+      </div>
       {loading ? (
         <p>Loading employees...</p>
       ) : (
